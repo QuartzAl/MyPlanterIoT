@@ -1,4 +1,4 @@
-package com.example.myplanter.ui.theme
+package com.example.sproutlink.ui.theme
 
 import android.app.Activity
 import android.os.Build

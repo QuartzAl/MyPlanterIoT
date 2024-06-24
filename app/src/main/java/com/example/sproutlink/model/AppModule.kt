@@ -1,7 +1,7 @@
-package com.example.myplanter.model
+package com.example.sproutlink.model
 
 import android.content.Context
-import com.example.myplanter.constants.SERVER_URI
+import com.example.sproutlink.constants.SERVER_URI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

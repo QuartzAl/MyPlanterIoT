@@ -1,8 +1,8 @@
-package com.example.myplanter
+package com.example.sproutlink
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MyPlanterApp: Application() {
+class SproutLinkApp: Application() {
 }

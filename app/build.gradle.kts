@@ -1,16 +1,19 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.dagger.hilt.android")
-    kotlin("kapt")
+    id("kotlin-kapt")
+
 }
 
+
 android {
-    namespace = "com.example.myplanter"
+    namespace = "com.example.sproutlink"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.myplanter"
+        applicationId = "com.example.sproutlink"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -32,11 +35,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
     }
     buildFeatures {
         compose = true
@@ -69,16 +72,12 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+
     implementation ("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.4")
     implementation ("org.eclipse.paho:org.eclipse.paho.android.service:1.1.1")
 
     // depedency injection
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
-    implementation("androidx.hilt:hilt-work:1.0.0")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
-    implementation("androidx.work:work-runtime-ktx:2.8.0")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
@@ -87,6 +86,14 @@ dependencies {
 
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+
+    implementation("com.patrykandpatrick.vico:compose-m3:2.0.0-alpha.21")
+    implementation("com.patrykandpatrick.vico:compose:2.0.0-alpha.21")
+    implementation("com.patrykandpatrick.vico:core:2.0.0-alpha.21")
+
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    kapt("com.google.dagger:hilt-compiler:2.51.1")
 }
 
 kapt {

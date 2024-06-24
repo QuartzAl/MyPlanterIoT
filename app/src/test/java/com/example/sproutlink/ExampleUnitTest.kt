@@ -1,4 +1,4 @@
-package com.example.myplanter
+package com.example.sproutlink
 
 import org.junit.Test
 

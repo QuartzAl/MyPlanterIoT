@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">My Planter</string>
+    <string name="app_name">Sprout Link</string>
+    <string name="series_d">Series %d</string>
+    <string name="moisture_legend">Moisture %</string>
+    <string name="humidity_legend">Humidity %</string>
+    <string name="rain_legend">Rain %</string>
 </resources>

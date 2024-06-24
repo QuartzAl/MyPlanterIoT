@@ -1,14 +1,19 @@
-package com.example.myplanter
+package com.example.sproutlink
 
 object constants {
     const val TAG = "MQTT"
-    const val SERVER_URI = "tcp://broker.hivemq.com:1883"
+    const val SERVER_URI = "tcp://192.168.1.150:1883"
     const val CLIENT_ID = "androidkt"
+    const val MAX_DATA_POINTS = 20
 
-    private const val MAIN_TOPIC = "planter2.0"
+    private const val MAIN_TOPIC = "planter"
 
     const val LIGHT_TOPIC = "$MAIN_TOPIC/light"
     const val MOISTURE_TOPIC = "$MAIN_TOPIC/moisture"
+    const val HUMIDITY_TOPIC = "$MAIN_TOPIC/humidity"
+    const val TEMPERATURE_TOPIC = "$MAIN_TOPIC/temperature"
+    const val PRESSURE_TOPIC = "$MAIN_TOPIC/pressure"
+    const val RAIN_TOPIC = "$MAIN_TOPIC/rain"
 
     const val REQUEST_TOPIC = "$MAIN_TOPIC/request"
     const val WATER_DATE_MESSAGE = "D"

@@ -1,4 +1,4 @@
-package com.example.myplanter
+package com.example.sproutlink
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

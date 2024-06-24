@@ -1,4 +1,4 @@
-package com.example.myplanter.ui.theme
+package com.example.sproutlink.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

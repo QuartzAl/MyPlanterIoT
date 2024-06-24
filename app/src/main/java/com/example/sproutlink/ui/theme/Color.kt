@@ -1,4 +1,4 @@
-package com.example.myplanter.ui.theme
+package com.example.sproutlink.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

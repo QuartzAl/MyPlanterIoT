@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "My Planter"
+rootProject.name = "Sprout Link"
 include(":app")
  

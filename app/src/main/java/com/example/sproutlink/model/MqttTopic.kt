@@ -1,4 +1,4 @@
-package com.example.myplanter.model
+package com.example.sproutlink.model
 
 data class MqttTopic(
     val name: String,
