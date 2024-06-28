@@ -46,7 +46,13 @@ class InfoViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(InfoUiState())
     val uiState = _uiState.asStateFlow()
 
-    val _modelProducer = CartesianChartModelProducer.build {
+    private val _lightSlider = MutableStateFlow(0.0f)
+    val lightSlider = _lightSlider.asStateFlow()
+
+    private val _waterConfirm = MutableStateFlow(false)
+    val waterConfirm = _waterConfirm.asStateFlow()
+
+    val modelProducer = CartesianChartModelProducer.build {
         lineSeries {
             series(List(15){0})
             series(List(15){0})
@@ -54,8 +60,6 @@ class InfoViewModel @Inject constructor(
         }
     }
 
-    private val _lightSlider = MutableStateFlow(0.0f)
-    val lightSlider = _lightSlider.asStateFlow()
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     val lightLevel = _lightSlider
@@ -74,7 +78,7 @@ class InfoViewModel @Inject constructor(
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     val p = _uiState.debounce(10).distinctUntilChanged()
         .flatMapLatest {
-            _modelProducer.runTransaction {
+            modelProducer.runTransaction {
                 lineSeries {
                     if (uiState.value.moistureList.isNotEmpty()) {
                         series(uiState.value.moistureList)
@@ -96,8 +100,7 @@ class InfoViewModel @Inject constructor(
             Log.d("MQTTdata", "Updated")
             return@flatMapLatest flow <Unit> {}
         }.launchIn(viewModelScope)
-    private val _waterConfirm = MutableStateFlow(false)
-    val waterConfirm = _waterConfirm.asStateFlow()
+
 
     fun toggleLightOverride(){
         publish(requestTopic, LIGHT_TOGGLE_OVERRIDE_MESSAGE)
@@ -152,42 +155,42 @@ class InfoViewModel @Inject constructor(
                     Log.d("MQTTdata", "received ${topic ?: "Null Topic"}: ${message.toString()}")
                     when (topic) {
                         constants.LIGHT_TOPIC -> {
-                            _uiState.value = uiState.value.copy(lux = message.toString())
+                            _uiState.value.lux = message.toString()
                         }
                         constants.MOISTURE_TOPIC -> {
-                            _uiState.value = uiState.value.copy(moistureList = uiState.value.moistureList + message.toString().toFloat())
+                            _uiState.value.moistureList = uiState.value.moistureList + message.toString().toFloat()
                             if (uiState.value.moistureList.size > MAX_DATA_POINTS){ // remove first element if list is too long
-                                _uiState.value = uiState.value.copy(moistureList = uiState.value.moistureList.drop(1))
+                                _uiState.value.moistureList = uiState.value.moistureList.drop(1)
                             }
                             Log.d("MQTTdata", "received moisture: ${uiState.value.moistureList}")
                         }
                         constants.HUMIDITY_TOPIC -> {
-                            _uiState.value = uiState.value.copy(humidityList = uiState.value.humidityList + message.toString().toFloat())
+                            _uiState.value.humidityList = uiState.value.humidityList + message.toString().toFloat()
                             if (uiState.value.humidityList.size > MAX_DATA_POINTS){ // remove first element if list is too long
-                                _uiState.value = uiState.value.copy(humidityList = uiState.value.humidityList.drop(1))
+                                _uiState.value.humidityList = uiState.value.humidityList.drop(1)
                             }
                             Log.d("MQTTdata", "received humidity: ${uiState.value.humidityList}")
                         }
                         constants.RAIN_TOPIC -> {
-                            _uiState.value = uiState.value.copy(rainList = uiState.value.rainList + message.toString().toFloat())
+                            _uiState.value.rainList = uiState.value.rainList + message.toString().toFloat()
                             if (uiState.value.rainList.size > MAX_DATA_POINTS){ // remove first element if list is too long
-                                _uiState.value = uiState.value.copy(rainList = uiState.value.rainList.drop(1))
+                                _uiState.value.rainList = uiState.value.rainList.drop(1)
                             }
                             Log.d("MQTTdata", "received rain: ${uiState.value.rainList}")
                         }
                         constants.TEMPERATURE_TOPIC -> {
-                            _uiState.value = uiState.value.copy(temperature = message.toString())
+                            _uiState.value.temperature = message.toString()
                         }
                         constants.PRESSURE_TOPIC -> {
-                            _uiState.value = uiState.value.copy(pressure = message.toString())
+                            _uiState.value.pressure = message.toString()
                         }
                         constants.RESPOND_OVERRIDE -> {
                             val value = message.toString() == "1"
-                            _uiState.value = uiState.value.copy(lightOverride = value)
+                            _uiState.value.lightOverride = value
                         }
                         constants.RESPOND_LIGHT_LEVEL -> {
                             val value = message.toString().toInt()
-                            _uiState.value = uiState.value.copy(lightLevel = value)
+                            _uiState.value.lightLevel = value
                         }
                         constants.RESPOND_DATE -> {
                             Log.d("MQTTdata", "received value: ${message.toString()}")
@@ -198,7 +201,7 @@ class InfoViewModel @Inject constructor(
                                 }.joinToString(" ")
 
                                 Log.d("MQTTdata", "processed date2: $formattedDate")
-                                _uiState.value = uiState.value.copy(lastWatered = formattedDate)
+                                _uiState.value.lastWatered = formattedDate
                             }
 
                         }
@@ -272,13 +275,13 @@ class InfoViewModel @Inject constructor(
 
     fun disconnectMqtt(){
         try{
-            var token= mqttClient.disconnect()
+            val token= mqttClient.disconnect()
             token?.actionCallback=object:IMqttActionListener{
                 override fun onSuccess(asyncActionToken: IMqttToken?) {
                     Log.d("MQTT","disconnect success")
                 }
                 override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-                    Log.d("MQTT", "disconnect failed");
+                    Log.d("MQTT", "disconnect failed")
                 }
             }
         }catch (e:MqttException){

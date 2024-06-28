@@ -52,7 +52,6 @@ import com.patrykandpatrick.vico.core.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.core.common.Dimensions
 import com.patrykandpatrick.vico.core.common.shader.DynamicShader
 import com.patrykandpatrick.vico.core.common.shape.Shape
-import java.util.Locale
 
 @Composable
 fun InfoScreen(
@@ -61,7 +60,7 @@ fun InfoScreen(
 
     val infoUiState by infoViewModel.uiState.collectAsState()
     val sliderValue by infoViewModel.lightSlider.collectAsState()
-    val modelProducer = infoViewModel._modelProducer
+    val modelProducer = infoViewModel.modelProducer
 
 
     MainActivityContent(
@@ -242,34 +241,6 @@ fun TextBox(header: String, data: String, unit: String = "", modifier: Modifier 
     }
 }
 
-@Composable
-fun Moisture(moisture: String, modifier: Modifier = Modifier) {
-    Card(
-        modifier = modifier
-            .shadow(4.dp)
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "Soil moisture")
-            Text(text = moisture)
-        }
-    }
-}
-
-@Composable
-fun Light(lux: String, modifier: Modifier = Modifier) {
-    Card(
-        modifier = modifier
-            .shadow(4.dp)
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "Ambient light")
-            Row {
-                Text(text = lux)
-                Text(text = " lux")
-            }
-        }
-    }
-}
 
 @Composable
 fun LastWaterDate(
@@ -287,7 +258,7 @@ fun LastWaterDate(
             Modifier
                 .padding(16.dp)
                 .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = CenterHorizontally
         ) {
             Text(text = "Last watered")
             Spacer(modifier = Modifier.padding(8.dp))

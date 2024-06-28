@@ -2,7 +2,7 @@ package com.example.sproutlink
 
 object constants {
     const val TAG = "MQTT"
-    const val SERVER_URI = "tcp://192.168.1.150:1883"
+    const val SERVER_URI = "tcp://broker.hivemq.com"
     const val CLIENT_ID = "androidkt"
     const val MAX_DATA_POINTS = 20
 
@@ -26,6 +26,4 @@ object constants {
     const val RESPOND_OVERRIDE = "$RESPOND_TOPIC/override"
     const val RESPOND_LIGHT_LEVEL = "$RESPOND_TOPIC/light"
     const val RESPOND_DATE = "$RESPOND_TOPIC/date"
-
-
 }

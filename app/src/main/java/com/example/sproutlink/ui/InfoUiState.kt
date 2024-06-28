@@ -1,13 +1,13 @@
 package com.example.sproutlink.ui
 
 data class InfoUiState(
-    val lux: String = "0",
-    val lastWatered: String = "0",
-    val lightLevel: Int = 0,
-    val lightOverride: Boolean = false,
-    val temperature: String = "0",
-    val pressure: String = "0",
-    val moistureList: List<Float> = listOf(),
-    val humidityList: List<Float> = listOf(),
-    val rainList: List<Float> = listOf(),
+    var lux: String = "0",
+    var lastWatered: String = "0",
+    var lightLevel: Int = 0,
+    var lightOverride: Boolean = false,
+    var temperature: String = "0",
+    var pressure: String = "0",
+    var moistureList: List<Float> = listOf(),
+    var humidityList: List<Float> = listOf(),
+    var rainList: List<Float> = listOf(),
 )
